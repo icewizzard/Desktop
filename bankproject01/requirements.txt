@@ -1,0 +1,9 @@
+flask
+sqlalchemy
+psycopg2
+psycopg2-binary
+pandas
+jupyterlab
+money
+babel
+email-validator

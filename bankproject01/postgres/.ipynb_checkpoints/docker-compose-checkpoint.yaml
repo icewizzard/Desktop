@@ -1,0 +1,18 @@
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432    
+    environment:
+      POSTGRES_USER: yoni
+      POSTGRES_PASSWORD: yoni123
+      POSTGRES_DB: bank
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+
+
+volumes:
+  pgdata:
