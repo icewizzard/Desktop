@@ -1,5 +1,7 @@
 from datetime import date
 
+
+    
 """
 class User:
     def __init__(self, accountnumber, username, password, email, name, dateofbirth):
@@ -100,6 +102,11 @@ class User:
         self.dateofbirth=dateofbirth
         self.amount=amount
 
+    def age(birthdate):
+        today = date.today()
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return age
+
     def moneyminus(self, amount, accountnumber):
         if True:
             money= self.amount 
@@ -143,6 +150,11 @@ class Banker(User):
         self.access_level=2
         self.salary = salary
     
+    def age(birthdate):
+        today = date.today()
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return age
+    
     def createuser(self, accountnumber, username, password, email, name, dateofbirth):
         if True:
             accountnumber = input("set account number:")
@@ -156,10 +168,13 @@ class Banker(User):
         
     def changeage(self, newdateofbirth):
         return super().changeage(newdateofbirth)
+    
     def changeemail(self, email):
         return super().changeemail(email)
+    
     def changepassword(self, password):
         return super().changepassword(password)
+    
     def changename(self, name):
         return super().changename(name)
     
@@ -178,6 +193,11 @@ class Manger(User):
             newuser = User(accountnumber, username, password, email, name, dateofbirth)
             return newuser    
     
+    def age(birthdate):
+        today = date.today()
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return age
+
     def createbanker(self, accountnumber, username, password, email, name, dateofbirth, salary):
         if True:
             accountnumber = input("set banker number:")
@@ -189,3 +209,15 @@ class Manger(User):
             salary = input("set worker salary:")
             newbanker = Banker(accountnumber, username, password, email, name, dateofbirth, salary)
             return newbanker   
+        
+    def changeage(self, newdateofbirth):
+        return super().changeage(newdateofbirth)
+    
+    def changeemail(self, email):
+        return super().changeemail(email)
+    
+    def changepassword(self, password):
+        return super().changepassword(password)
+    
+    def changename(self, name):
+        return super().changename(name)
