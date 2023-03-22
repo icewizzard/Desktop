@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+login_manager = LoginManager(app)
 
 app.secret_key = 'Ak47'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://yoni:yoni123@localhost:5432/bank'
@@ -27,20 +28,23 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
     
-class User(db.Model):
+class User(db.Model, UserMixin):
+    def __init__(self, id):
+        self.id=id
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
 
 
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-
-# Create a user loader function
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return User(user_id)
+
+# Create a user loader function
+#@login_manager.user_loader
+#def load_user(user_id):
+  #  return User.query.get(int(user_id))
 
 @app.route("/")
 def home():
@@ -73,14 +77,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
 
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
-
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', user=current_user)
 
 @app.route('/logout')
 @login_required
